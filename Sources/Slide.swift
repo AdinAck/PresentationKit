@@ -11,6 +11,7 @@ import SwiftUI
 public protocol SlideModel: ObservableObject {
     var name: String { get }
     var duration: CGFloat { get }
+    var transition: Transition { get }
     
     func view(t: CGFloat, scale: CGFloat) -> AnyView
 }

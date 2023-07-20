@@ -8,6 +8,10 @@
 import Foundation
 import SwiftUI
 
+public enum Transition {
+    case none, fade, slide
+}
+
 public class Presentation: ObservableObject {
     @Published public var keyframe: CGFloat = 0
     
@@ -93,9 +97,25 @@ public struct PresentationView: View {
                         if local_t >= -1 && local_t <= duration {
                             model.slides[index].view(t: local_t, scale: scale)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                .opacity((0..<duration).contains(local_t) ? 1 : 0)
-                                .offset(y: (0..<duration).contains(local_t) ? 0 : local_t < 0 ? 100 * scale : -100 * scale) // this is hardcoded for now, may provide an interface later
-                                .animation(Presentation.animation, value: t)
+                                .opacity(
+                                    (0..<duration).contains(local_t) ?
+                                    1 :
+                                    0
+                                )
+                                .offset(
+                                    y: model.slides[index].transition == .slide ?
+                                        (
+                                            (0..<duration).contains(local_t) ?
+                                            0 :
+                                            (
+                                                local_t < 0 ?
+                                                100 * scale :
+                                                -100 * scale
+                                            )
+                                        ) :
+                                        0
+                                ) // this is hardcoded for now, may provide an interface later
+                                .animation(model.slides[index].transition == .none ? .none : Presentation.animation, value: t)
                         }
                     }
                 }
