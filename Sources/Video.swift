@@ -12,6 +12,10 @@ import AVKit
 public struct AVPlayerControllerRepresented : NSViewRepresentable {
     var player : AVPlayer
     
+    public init(player: AVPlayer) { // so dumb!!!
+        self.player = player
+    }
+
     public func makeNSView(context: Context) -> AVPlayerView {
         let view = AVPlayerView()
         view.controlsStyle = .none
