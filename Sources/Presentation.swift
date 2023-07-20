@@ -94,6 +94,7 @@ public struct PresentationView: View {
                             model.slides[index].view(t: local_t, scale: scale)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .opacity((0..<duration).contains(local_t) ? 1 : 0)
+                                .offset(y: (0..<duration).contains(local_t) ? 0 : local_t < 0 ? 100 * scale : -100 * scale) // this is hardcoded for now, may provide an interface later
                                 .animation(Presentation.animation, value: t)
                         }
                     }
