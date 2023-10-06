@@ -2,7 +2,7 @@
 
 Create stunning presentations with the power of SwiftUI.
 
-[Demo](https://github.com/AdinAck/PresentationKit/assets/30732255/41e289b5-35f6-4d39-9abe-659fa00c77e4)
+![Demo](https://github.com/AdinAck/PresentationKit/assets/30732255/41e289b5-35f6-4d39-9abe-659fa00c77e4)
 
 ## Installation
 
