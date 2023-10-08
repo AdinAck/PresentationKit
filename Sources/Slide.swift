@@ -18,5 +18,5 @@ public protocol SlideModel: ObservableObject {
 
 public protocol SlideView: View {
     var t: CGFloat { get set }
-    var scale: CGFloat { get set }
+    var scale: CGFloat { get }
 }
