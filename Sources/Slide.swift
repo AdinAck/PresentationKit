@@ -1,6 +1,6 @@
 //
 //  Slide.swift
-//  
+//
 //
 //  Created by Adin Ackerman on 7/12/23.
 //
@@ -12,7 +12,8 @@ public protocol SlideModel: ObservableObject {
     var name: String { get }
     var duration: CGFloat { get }
     var transition: Transition { get }
-    
+    var teleprompt: [String]? { get }
+
     func view(t: CGFloat, scale: CGFloat) -> AnyView
 }
 
