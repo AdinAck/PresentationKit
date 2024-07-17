@@ -24,31 +24,13 @@ import PresentationKit
 
 @main
 struct MyApp: App {
-    @StateObject var model = Presentation(bgColor: .white, slides: [
+    @StateObject var presentation = Presentation(bgColor: .white, slides: [
         Title(),
         // put more slides here
     ])
-    
+
     var body: some Scene {
-        WindowGroup {
-            PresentationView()
-                .environmentObject(model)
-        }
-        .commands {
-            CommandMenu("Control") {
-                Text("Current frame: \(Int(model.keyframe))")
-                
-                Button("Next Keyframe") {
-                    model.nextKeyframe()
-                }
-                .keyboardShortcut("N")
-                
-                Button("Previous Keyframe") {
-                    model.prevKeyFrame()
-                }
-                .keyboardShortcut("B")
-            }
-        }
+        PresentationScene(presentation: presentation)
     }
 }
 ```

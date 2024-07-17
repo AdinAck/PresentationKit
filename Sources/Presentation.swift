@@ -132,3 +132,38 @@ public struct PresentationView: View {
         }
     }
 }
+
+public struct PresentationScene: Scene {
+    let presentation: Presentation
+
+    public init(presentation: Presentation) {
+        self.presentation = presentation
+    }
+
+    public var body: some Scene {
+        Window("Presentation", id: "presentation") {
+            PresentationView()
+                .environmentObject(presentation)
+        }
+        .commands {
+            CommandMenu("Control") {
+                Text("Current frame: \(Int(presentation.keyframe))")
+
+                Button("Next Keyframe") {
+                    presentation.nextKeyframe()
+                }
+                .keyboardShortcut("N")
+
+                Button("Previous Keyframe") {
+                    presentation.prevKeyFrame()
+                }
+                .keyboardShortcut("B")
+            }
+        }
+
+        Window("Teleprompter", id: "teleprompter") {
+            TeleprompterView()
+                .environmentObject(presentation)
+        }
+    }
+}
