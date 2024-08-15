@@ -120,15 +120,6 @@ public struct PresentationView: View {
                     }
                 }
             }
-
-            VStack {
-                Spacer()
-
-                TimelineView(permanent: false)
-                    .environmentObject(model)
-                    .frame(width: 400, height: 60)
-                    .padding(50)
-            }
         }
     }
 }
