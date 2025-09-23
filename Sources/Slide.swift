@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-public protocol SlideModel: ObservableObject {
+public protocol SlideModel {
     var name: String { get }
     var duration: CGFloat { get }
     var transition: Transition { get }
