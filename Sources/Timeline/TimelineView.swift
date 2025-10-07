@@ -15,20 +15,6 @@ struct TimelineView: View {
     @State private var selected: (any SlideModel)? = nil
     @State private var selectedIndex: Int? = nil
 
-    func fancyScrub(to target: CGFloat) async {
-        let delta = Int(target - model.keyframe)
-
-        for _ in 0..<abs(delta) {
-            await MainActor.run {
-                withAnimation(Presentation.animation) {
-                    model.keyframe += CGFloat(delta/abs(delta))
-                }
-            }
-
-            try? await Task.sleep(for: .seconds(0.2))
-        }
-    }
-
     var body: some View {
         VStack {
             Spacer()
@@ -75,9 +61,10 @@ struct TimelineView: View {
                                         }
                                         .onTapGesture {
                                             Task {
-                                                await fancyScrub(to: model.countFrames(to: index))
+                                                await model.fancyScrub(to: model.countFrames(to: index))
                                             }
                                         }
+                                        .pointerStyle(.link)
                                 }
 
                                 Spacer()

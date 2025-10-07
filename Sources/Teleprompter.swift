@@ -9,7 +9,10 @@ import Foundation
 import SwiftUI
 
 struct PromptText: View {
+    @EnvironmentObject var model: Presentation
+    
     let text: [String]
+    let slide: SlideModel
     let index: Int
 
     var body: some View {
@@ -21,6 +24,13 @@ struct PromptText: View {
                     .font(.largeTitle)
                     .bold()
                     .foregroundStyle(current ? .primary : .secondary)
+                    .onTapGesture {
+                        Task {
+                            await model.fancyScrub(to: model.countFrames(to: slide) + CGFloat(i))
+                        }
+                    }
+                    .pointerStyle(.link)
+                
             }
         }
     }
@@ -38,8 +48,9 @@ public struct TeleprompterView: View {
                     ForEach(model.slides, id: \.name) { slide in
                         if let teleprompt = slide.teleprompt {
                             let local = Int(model.keyframe - model.countFrames(to: slide))
-                            PromptText(text: teleprompt, index: local)
+                            PromptText(text: teleprompt, slide: slide, index: local)
                                 .offset(x: 0, y: model.keyframe < model.countFrames(to: slide) ? geometry.size.height : local >= Int(slide.duration) ? -geometry.size.height : 0)
+                                .environmentObject(model)
                         }
                     }
                 }

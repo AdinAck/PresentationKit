@@ -74,6 +74,20 @@ public class Presentation: ObservableObject {
 
         return nil
     }
+    
+    @MainActor func fancyScrub(to target: CGFloat) async {
+        let delta = Int(target - self.keyframe)
+
+        for _ in 0..<abs(delta) {
+            await MainActor.run {
+                withAnimation(Presentation.animation) {
+                    self.keyframe += CGFloat(delta/abs(delta))
+                }
+            }
+
+            try? await Task.sleep(for: .seconds(0.2))
+        }
+    }
 }
 
 public struct PresentationView: View {
